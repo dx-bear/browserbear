@@ -1,0 +1,11 @@
+version = 1
+revision = 3
+requires-python = ">=3.12"
+
+[[package]]
+name = "browserbear"
+version = "1.0.4.2"
+source = { virtual = "." }
+
+[package.metadata]
+requires-dist = [{ name = "browserbear", specifier = ">=1.0.4.2" }]
