@@ -4,8 +4,8 @@ requires-python = ">=3.12"
 
 [[package]]
 name = "browserbear"
-version = "1.0.4.2"
+version = "1.0.4.3"
 source = { virtual = "." }
 
 [package.metadata]
-requires-dist = [{ name = "browserbear", specifier = ">=1.0.4.2" }]
+requires-dist = [{ name = "browserbear", specifier = ">=1.0.4.3" }]
