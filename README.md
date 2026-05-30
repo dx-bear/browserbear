@@ -30,6 +30,7 @@
 
 ### Pixelscan Test
 `example/bot_detection/pixelscan.py`
+
 https://github.com/user-attachments/assets/c9ef2920-1cd3-472d-8127-4822f8f7fb54
 
 
@@ -37,6 +38,7 @@ https://github.com/user-attachments/assets/c9ef2920-1cd3-472d-8127-4822f8f7fb54
 
 ### Turnstile demo
 `example/cloudflare/turnstile_demo.py`
+
 https://github.com/user-attachments/assets/0e38a64a-26ac-4113-bb88-49c11a4d6550
 
 
@@ -45,16 +47,15 @@ https://github.com/user-attachments/assets/0e38a64a-26ac-4113-bb88-49c11a4d6550
 ### Ahrefs AI humanizer
 Scrape humanized text from the Ahrefs AI Humanizer tool that converts AI-generated content into natural, human-like text.
 `example/cloudflare/ahrefs_ai_humanizer.py`
+
 https://github.com/user-attachments/assets/493b8020-5ebc-4f0e-8128-613eed7f10b8
 
 
 ### 🤖 Automatic Challenge Clicking
 Example showing how BrowserBear automatically detects and clicks Cloudflare challenge checkboxes.
 `example/cloudflare/ahrefs_ai_humanizer.py`
+
 https://github.com/user-attachments/assets/2588b496-8cf8-40c1-9f7e-aca1b84c1e6e
-
-
-
 
 
 ---
