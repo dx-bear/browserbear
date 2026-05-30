@@ -51,10 +51,6 @@ https://github.com/user-attachments/assets/5e89e2f5-dbb3-4580-b08f-8bfd4bd0dff1
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2616bcb (Enhance BrowserBear functionality and examples)
 ---
 
 ## 📦 Installation
@@ -87,7 +83,7 @@ async def main():
     page = b.pages[0]
 
     # Safely navigate to a page, without triggering anti-bot measures
-    await StealthBrowser.safe_goto(page, "https://example.com")
+    await StealthBrowser.safe_goto(b, "https://example.com")
 
     # Wait a second
     await asyncio.sleep(1)
@@ -129,434 +125,12 @@ uv run examples/example_name.py
 
 # 🐻 BrowserBear — Documentation
 
-<<<<<<< HEAD
-BrowserBear is a minimal yet powerful library for undetectable web scraping and browser automation. Its main goal is to provide the essential tools you need for most websites while hiding the complex parts behind simple and clean methods.
-
-Most stealth browsers and undetectable frameworks still trigger bot detection when making unsafe actions or using poorly configured proxies. BrowserBear provides abstracted methods that are carefully tuned to reduce detection and improve automation stability.
-
-For example, BrowserBear automatically performs a browser **warm-up** when creating a new context. This step is very important for bypassing bot detection because many anti-bot systems monitor browser startup behavior, fingerprint consistency, and proxy handshakes.
-
-🛡️ BrowserBear also includes safer navigation methods. The standard `goto()` method used in many automation libraries can be detectable on protected websites. Even popular stealth frameworks such as SeleniumBase may still trigger anti-bot systems in some cases.
-
-Instead, BrowserBear provides a safer alternative called `safe_goto()`, designed to reduce suspicious browser behavior and avoid triggering protection systems.
-
-⚡ The library focuses on:
-
--   Safer browser automation
--   Human-like browsing behavior
--   Better proxy handling
--   Reduced bot detection triggers
--   Simple and developer-friendly APIs
-
-Below you will find the full documentation explaining all BrowserBear class methods and features.
-
-----------
-## 🧭 Import Browser
-Right now, only `StealthBrowser` is available.
-
-However, the roadmap includes adding more browser types, including a **Lite Browser** designed for ultra-fast scraping and lightweight automation.
-=======
 BrowserBear is a minimal yet powerful library for undetectable web scraping and browser automation. It exposes a single class — `StealthBrowser` — with a small, focused set of methods.
->>>>>>> 2616bcb (Enhance BrowserBear functionality and examples)
 
 ```python
 from browserBear.browsers import StealthBrowser
 ```
 
-<<<<<<< HEAD
-----------
-
-## 🚀 Create Browser
-
-To create a new browser instance, BrowserBear provides the `connect()` method.
-
-When called for the first time, it will:
-
--   Launch a new browser
--   Create an isolated browser context
--   Open a new page automatically
-
-```python
-page = await StealthBrowser.connect()
-
-```
-
-----------
-
-## ⚙️ `connect()` Arguments
-
-### 🧬 `fingerprint`
-
-```python
-fingerprint: str = "1"
-
-```
-
-Every browser instance can use a different fingerprint. This includes properties such as:
-
--   WebGL
--   Canvas
--   Audio
--   Browser characteristics
--   And more
-
-BrowserBear heavily relies on a patched Chrome build powered by CloakBrowser.
-
-For more information, check the CloakBrowser repository.
-
-> ✨ **Feature Coming Soon** — Soon, BrowserBear will support changing fingerprints per browser context, giving you even more isolation and flexibility.
-
-**Example:**
-
-```python
-await StealthBrowser.connect(fingerprint=1)  # Browser with fingerprint 1
-await StealthBrowser.connect(fingerprint=2)  # Different browser with another fingerprint
-
-```
-
-The fingerprint also acts as a browser profile ID.
-
-----------
-
-### 🌍 `proxy`
-
-```python
-proxy: Any | None = None
-
-```
-
-You can configure a proxy when creating the browser first time, also you can create context with different proxy and timezone.
-
-**Example proxy configuration:**
-
-```python
-proxyConfig = {
-    "server": "ip:port",
-    "username": "username",
-    "password": "password"
-}
-
-```
-
-**Example usage:**
-
-```python
-page = await StealthBrowser.connect(
-    fingerprint=123,
-    proxy=proxyConfig
-)
-
-```
-
-----------
-
-### 🕒 `timezone_id`
-
-```python
-timezone_id: Any | None = None
-
-```
-
-```python
-'Europe/Berlin'
-
-```
-
-> ⚠️ It is very important to match your timezone with your proxy location. A misconfigured timezone can easily trigger bot detection systems.
-
-----------
-
-### 🌐 `locale`
-
-```python
-locale: Any | None = None
-
-```
-
-```python
-'de-DE'
-
-```
-
-The locale should also match the proxy region for better consistency.
-
-----------
-
-### ✨ Upcoming `connect()` Features
-
-BrowserBear will soon support:
-
--   Automatic locale detection
--   Automatic timezone configuration
--   Proxy-based context setup during warm-up
-
-This helps create more realistic browser sessions automatically.
-
-----------
-
-## 🧩 Creating Isolated Contexts
-
-You can also create isolated pages from an already running browser using different settings. Make sure to connect to the browser with the same fingerprint/id.
-
-```python
-page1 = await StealthBrowser.connect(
-    fingerprint=123,
-    proxy=proxyConfigUS
-)
-
-page2 = await StealthBrowser.connect(
-    fingerprint=123,
-    proxy=proxyConfigDE
-)
-
-```
-
-> ⚡ **Important:** This creates a new isolated browser context, not a completely new browser process.
-
-Each context is fully isolated while being much faster to create because the main browser is already running.
-
-This allows BrowserBear to create new pages and contexts very quickly without reloading the full browser every time.
-
-----------
-
-## 📄 Page
-
-A `page` created using `StealthBrowser.connect()` behaves exactly like a Playwright page. It includes all standard methods and properties from Playwright, so you can use the official Playwright documentation as a reference for full functionality.
-
-### ⚠️ Differences from Playwright
-
-BrowserBear extends the standard Playwright page with only two additional methods:
-
-----------
-
-#### 🛡️ `page.safe_goto()`
-
-A safer navigation method designed to reduce bot detection risks.
-
-```python
-await page.safe_goto("http://example.com")
-
-```
-
-Unlike the standard `goto()`, this method is optimized to behave more naturally and avoid triggering anti-bot systems during navigation.
-
-----------
-
-#### 🧹 `page.clean()`
-
-A fast and lightweight method to close both the page and its browser context in the background.
-
-```python
-await page.clean()
-
-```
-
-This is faster than manually closing each resource and helps ensure clean teardown of sessions.
-
-----------
-
-### ⏳ Page Load Handling
-
-`safe_goto()` automatically waits for the page to load, but you can still use Playwright's built-in waiting strategies for more control.
-
-**Example — Navigation + Load States:**
-
-```python
-await page.safe_goto("http://example.com")
-
-# Wait for DOM to be fully loaded
-await page.wait_for_load_state("domcontentloaded")
-
-# Wait for all resources (images, stylesheets, etc.) to finish loading
-await page.wait_for_load_state("load")
-
-# Wait until network is idle (no requests for at least 500ms)
-await page.wait_for_load_state("networkidle")
-
-```
-
-----------
-
-### 🔗 Full Playwright Compatibility
-
-All methods and properties available in Playwright's `page` object work seamlessly with the `StealthBrowser.connect()` page.
-
-This means you can:
-
--   Use standard Playwright automation patterns
--   Mix BrowserBear methods with Playwright methods
--   Rely on existing Playwright knowledge without rewriting your logic
-
-BrowserBear simply adds safer navigation and faster cleanup on top of the existing Playwright API.
-
-----------
-
-## 🚫 Blocking Resources
-
-If you want to block network resources using Playwright, that is completely fine and fully supported. It will work as expected, and you can still use Playwright's native network control features.
-
-However, some resources (like certain scripts, fonts, or media files) can trigger bot detection systems when loaded. For that reason, BrowserBear provides a safer and simpler alternative.
-
-### 🛡️ `StealthBrowser.block_resources(page)`
-
-This method automatically blocks common resource types that may increase bot detection risk while keeping the page functional.
-
-```python
-await StealthBrowser.block_resources(page)
-
-```
-
-**⚡ What it does:**
-
-This method safely blocks or filters resources such as:
-
--   Images
--   Fonts
--   Certain media files
--   Other non-essential assets that may trigger detection systems
-
-At the same time, it preserves important resources needed for normal page functionality and stability.
-
-**🔧 Why use it?**
-
-Using manual Playwright blocking rules gives you full control, but it can be complex and error-prone.
-
-`block_resources()` is designed to:
-
--   Reduce bot detection risk
--   Simplify setup
--   Apply safe default rules automatically
--   Keep automation stable across different websites
-
-**🧩 Playwright Flexibility:**
-
-You are still free to use Playwright's native request interception and routing if you want full customization.
-
-This means you can:
-
--   Define your own blocking rules
--   Allow or block specific domains
--   Fine-tune performance and privacy behavior
-
-> 🧠 **Recommendation:** Use `StealthBrowser.block_resources(page)` for quick and safe setup. Use Playwright's native API when you need advanced or custom filtering logic.
-
-BrowserBear gives you both simplicity and full control depending on your needs.
-
-----------
-
-## 🔓 Solving Cloudflare Challenges
-
-In most cases, if you are using a high-quality proxy and the safe methods provided by BrowserBear, you will rarely encounter CAPTCHAs or anti-bot challenges.
-
-However, some websites enforce a mandatory challenge for new visitors who do not have existing cookies for the target domain. In these cases, BrowserBear provides an automated method to detect and handle challenges safely.
-
-### 🛡️ `StealthBrowser.expect_and_solve_challenge()`
-
-This method automatically searches for and attempts to solve challenge boxes when they appear.
-
-```python
-await StealthBrowser.expect_and_solve_challenge(page, wait_seconds=5, max_attempts=10)
-
-```
-
-**⚙️ How it works:**
-
-Unlike many stealth frameworks that aggressively try to interact with the page, this method is more controlled and safe:
-
--   It checks the page every few seconds
--   It only attempts interaction if a challenge is detected
--   If no challenge is found, it simply continues execution
--   It avoids unnecessary clicks or suspicious behavior
-
-**📌 Parameters:**
-
-`page`
-
-—
-
-The active browser page where the challenge may exist
-
-`wait_seconds`
-
-`5`
-
-How long to wait between each check
-
-`max_attempts`
-
-`10`
-
-Maximum number of attempts before stopping
-
-**💡 Example usage:**
-
-```python
-page = await StealthBrowser.connect()
-
-await page.safe_goto(url)
-
-await asyncio.sleep(2)
-
-await StealthBrowser.expect_and_solve_challenge(page)
-
-```
-
-> 🧠 **Key idea:** This method is designed to be passive when no challenge exists, active only when necessary, and safer than constant interaction or aggressive solving attempts. It helps maintain a more human-like browsing pattern while still handling forced anti-bot challenges when they appear.
-
-----------
-
-## 🛑 Shutdown the Browser
-
-For better resource management, it is important to properly close the browser after you are done.
-
-When you create multiple contexts or pages using BrowserBear, you should shut them down to free memory and system resources.
-
-### 🧹 `StealthBrowser.shutdown_browser()`
-
-You can close a specific browser instance using its fingerprint.
-
-```python
-await StealthBrowser.shutdown_browser(fingerprint: str)
-
-```
-
-**📌 Example:**
-
-If you created a browser like this:
-
-```python
-page = await StealthBrowser.connect(fingerprint=55)
-
-```
-
-You can shut it down using:
-
-```python
-await StealthBrowser.shutdown_browser(55)
-
-```
-
-This will properly close all related contexts and resources tied to that fingerprint.
-
-----------
-
-### 💣 Shutdown All Browsers
-
-You can also close every running browser instance at once.
-
-```python
-await StealthBrowser.shutdown_all()
-
-```
-
-This is useful when:
-
--   Ending a scraping session
--   Cleaning up multiple active contexts
--   Resetting the environment completely
-
-----------
-=======
 ---
 
 ## 📋 Method Overview
@@ -906,7 +480,7 @@ from browserBear.browsers import StealthBrowser
 
 
 proxy_config = {
-    "server": "http://123.45.67.89:8080",
+    "server": "123.45.67.89:8080",
     "username": "user",
     "password": "pass",
 }
@@ -980,7 +554,6 @@ if __name__ == "__main__":
 ```
 
 ---
->>>>>>> 2616bcb (Enhance BrowserBear functionality and examples)
 
 ## 📚 More Features & Tutorials
 
@@ -991,46 +564,26 @@ You can learn more by checking the example folder in the repository:
 ```bash
 clone the repo
 run: example/<example_script.py>
-<<<<<<< HEAD
-
-```
-
-----------
-=======
 ```
 
 ---
->>>>>>> 2616bcb (Enhance BrowserBear functionality and examples)
 
 ## 🚀 Upcoming Features
 
 -   🔄 Change fingerprint per context
 -   ⚡ Lite Browser for ultra-fast scraping
 -   🌐 HTTP-only scraping mode (no browser required)
-<<<<<<< HEAD
-
-----------
-=======
 -   🔒 Safe concurrency utilities for multi-session workflows
 -   🌑 Built-in Shadow DOM helpers for modern web components
 
 ---
->>>>>>> 2616bcb (Enhance BrowserBear functionality and examples)
 
 ## ⭐ Support
 
 If you find BrowserBear useful, consider giving the repository a star to support development and future updates.
-<<<<<<< HEAD
----
-
-
-
-
-=======
 
 ---
 
->>>>>>> 2616bcb (Enhance BrowserBear functionality and examples)
 ## 🤝 Contributing
 
 We are not accepting direct code contributions at this time. If you find a bug or have a feature request, please submit an issue 🐛.
